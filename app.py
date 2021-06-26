@@ -18,9 +18,9 @@ def about():
     return render_template('detect.html')
 
 
-@app.route('/detect', methods=['GET', 'POST'])
-def detect():
-    return render_template('detect.html')
+@app.route('/localize', methods=['GET', 'POST'])
+def localize():
+    return render_template('localize.html')
 
 
 @app.route('/predict', methods=['GET', 'POST'])
