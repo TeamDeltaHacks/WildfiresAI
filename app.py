@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from joblib import dump, load
 import tensorflow as tf
 import keras
 from keras.models import load_model
@@ -7,6 +8,10 @@ import os
 
 app = Flask(__name__)
 
+size_svm_model = load('svm.joblib')
+size_elnt_model = load('elnt.joblib')
+size_xgb_model = load('xgb.joblib')
+putout_model = load_model('putout.h5')
 
 @app.route('/')
 def index():
