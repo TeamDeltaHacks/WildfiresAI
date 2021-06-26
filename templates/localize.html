@@ -78,20 +78,31 @@
       </div>
     </section><!-- End About Us Section -->
 
+    <!-- ======= Inputs Section ======= -->
+    <section class="section"> 
+      <div class="container">
+        {% if output != "" %}
+          <center>
+            <h3>Output:</h3>
+          <br/>
+            <img src="{{output}}" style="height: 500px; width: 700px; display: block; margin-left: auto; margin-right: auto;" />
+          </center>
+        {% endif %}
 
-    <div class="container">
-      <div style="margin-top: 10%">
-        <center>
-          <h3>Our model on a video from security footage</h3>
-        </center>
-        <br/>
-        <center>
-          <img src="../static/assets/img/localize.gif" style="height: 500px; width: 700px; display: block; margin-left: auto; margin-right: auto;" />
-        </center>
         
+
+        {% if output == "" %}
+          <div style="margin-top: 10%">
+            <center>
+              <h3>Our model on a video from security footage</h3>
+            <br/>
+              <img src="../static/assets/img/localize.gif" style="height: 500px; width: 700px; display: block; margin-left: auto; margin-right: auto;" />
+            </center>
+            
+          </div>
+        {% endif %}
       </div>
-      
-    </div>
+    </section>
 
 
     

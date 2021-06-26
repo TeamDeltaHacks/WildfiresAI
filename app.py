@@ -20,7 +20,7 @@ def about():
 
 @app.route('/localize', methods=['GET', 'POST'])
 def localize():
-    return render_template('localize.html')
+    return render_template('localize.html', output="")
 
 
 @app.route('/predict', methods=['GET', 'POST'])
