@@ -70,7 +70,7 @@ def visualize_map():
     return render_template('visualize-map.html')
 
 @app.route('/visualize-map2')
-def visualize_map():
+def visualize_map2():
     return render_template('visualize-map2.html')
 
 if __name__ == "__main__":
