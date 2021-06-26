@@ -59,8 +59,6 @@ def predict():
         assert (humidity >= 0)
         assert (humidity <= 100)
         assert (precipitation >= 0)
-        #assert (vegetation >= 1)
-        #assert (vegetation <= 28)
         assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation == 12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
 
         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -111,8 +109,7 @@ def predict():
         print(result)
         result_rounded = round(result)
         result_float = float(result_rounded)
-        output = f"Magnitude: {result_rounded} Acres"   
-        #output = "Acres"
+        output = f"Magnitude: {result_rounded} Acres"
         #except Exception as e:
         #    print(e)
         #    output = "Invalid parameters"
