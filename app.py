@@ -5,13 +5,15 @@ import keras
 from keras.models import load_model
 import pandas as pd
 import os
+import xgboost as xgb
 
 app = Flask(__name__)
 
 fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
 svm = load('svm.joblib')
 elnt = load('elnt.joblib')
-xgb = load('xgb.joblib')
+model_xgb = xgb.Booster()
+model_xgb.load_model('xgb.json')
 putout_model = load_model('putout.h5')
 
 
