@@ -8,9 +8,10 @@ import os
 
 app = Flask(__name__)
 
-size_svm_model = load('svm.joblib')
-size_elnt_model = load('elnt.joblib')
-size_xgb_model = load('xgb.joblib')
+fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
+magnitude_svm_model = load('svm.joblib')
+magnitude_elnt_model = load('elnt.joblib')
+magnitude_xgb_model = load('xgb.joblib')
 putout_model = load_model('putout.h5')
 
 @app.route('/')
@@ -57,6 +58,11 @@ def predict():
             assert (precipitation >= 0)
             assert (vegetation >= 1)
             assert (vegetation <= 28)
+
+            magnitude_data = fire_data[['fire_size', 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']]
+
+            # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
+            # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
             
             output = "Output"
         except:
