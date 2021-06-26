@@ -47,10 +47,10 @@ def predict():
         precipitation = float(request.form.get("precipitation"))
         vegetation = int(request.form.get("vegetation"))
 
-        assert (longitude >= -90)
-        assert (longitude <= 90)
-        assert (latitude >= -180)
-        assert (latitude <= 180)
+        assert (latitude >= -90)
+        assert (latitude <= 90)
+        assert (longitude >= -180)
+        assert (longitude <= 180)
         assert (month >= 1)
         assert (month <= 12)
         assert (remoteness >= 0)
@@ -84,7 +84,6 @@ def predict():
         }
 
         X_dataf = pd.DataFrame(data=X_data)
-        print(X_dataf.columns)
         X_dataf = X_dataf.append(mag_data)
 
         # One Hot Encodings
@@ -94,7 +93,6 @@ def predict():
         X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
         X_dataf = X_dataf.iloc[:1]
-        print(X_dataf.columns)
         y_elastic = elnt.predict(X_dataf)
         y_elastic = y_elastic[0]
         #y_svm = svm.predict(X_dataf)
@@ -108,19 +106,16 @@ def predict():
         # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
         # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
 
-        print(result)
         result_rounded = round(result)
+        if(result_rounded > 1000000):
+            result_rounded = 1000000
         result_float = float(result_rounded)
-        output = f"Magnitude: {result_rounded} Acres"
-        # except Exception as e:
-        #    print(e)
-        #    output = "Invalid parameters"
 
         # Create data
         columns1 = ['fire_size', 'discovery_month',
                     'Vegetation', 'remoteness']
         putout_data = fire_data[columns1]
-        putout_data = mag_data.dropna()
+        putout_data = putout_data.dropna()
 
         X_data1 = {
             'fire_size': [result_float],
@@ -132,16 +127,36 @@ def predict():
         X_dataf1 = pd.DataFrame(data=X_data1)
         print(X_dataf1.columns)
         X_dataf1 = X_dataf1.append(putout_data)
+        print(0)
 
         # One Hot Encodings
-        non_dummy_cols1 = ['discovery_month', 'Vegetation']
+        non_dummy_cols1 = ['fire_size', 'remoteness']
+        print(1)
         dummy_cols1 = list(set(X_dataf1.columns) - set(non_dummy_cols1))
+        print(2)
+        print(putout_data)
+        print("\n\n")
+        print(X_dataf1)
+        print("\n\n")
+        print(dummy_cols1)
         X_dataf1 = pd.get_dummies(X_dataf1, columns=dummy_cols1)
+        print(3)
 
         X_dataf1 = X_dataf1.iloc[:1]
+        print(4)
 
         # Predict
-        result1 = putout_model.predict(X_dataf1)
+        result1 = putout_model.predict(X_dataf1)[0][0]
+        print(5)
+        result1_rounded = round(result1)
+        if(result1_rounded > 500):
+            result1_rounded = 500
+        output = f"Magnitude: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
+        # except Exception as e:
+        #    print(e)
+        #    output = "Invalid parameters"
+
+        
 
         return render_template('predict.html', output=output)
     else:
