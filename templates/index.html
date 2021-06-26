@@ -45,7 +45,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="active" href="/">Home</a></li>
-          <li><a href="/detect">Detect</a></li>
+          <li><a href="/detect">Localize</a></li>
           <li><a href="/predict">Predict</a></li>
           <li><a href="/visualize">Visualize</a></li>
         </ul>
@@ -109,7 +109,7 @@
 
         <div class="section-title">
           <h2>Wildfires in Numbers</h2>
-          <h6>Within the United States in 2020 alone</h6>
+          <h6>Within the US in 2020 alone</h6>
           <p></p>
         </div>
 
@@ -210,16 +210,15 @@
             <img src="../static/assets/img/features-1.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-            <h3>Fire Detection</h3>
+            <h3>Localizing Fires</h3>
             <p class="fst-italic">
               Using a custom-trained Tensorflow2 Object Detection Model, this feature accurately uses bounding boxes to
               surround a fire with a rectangle with the % chance of confidence.
             </p>
             <ul>
-              <li><i class="bi bi-check"></i>Clearly delineates the boundaries of the fire, especially in the case of
-                faint smoke</li>
-              <li><i class="bi bi-check"></i>Can be used in video footage to show the progression of a fire over time
-              </li>
+              <li><i class="bi bi-check"></i> Clearly delineates the boundaries of the fire</li>
+              <li><i class="bi bi-check"></i> Can be integrated into video to show progression</li>
+              <li><i class="bi bi-check"></i> Provides a confidence estimator of the bounding box</li>
             </ul>
           </div>
         </div>
@@ -229,18 +228,18 @@
             <img src="../static/assets/img/features-2.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-5 order-2 order-md-1">
-            <h3>Predicting Fire Size</h3>
+            <h3>Predicting Magnitude of Fires</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
+              Combining Elastic Net, SVM regressor, and XGB regressor into an ensemble model, this feature provides an
+              accurate prediction of the fire size (burn area) in acres.
             </p>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
+
+            <ul>
+              <li><i class="bi bi-check"></i> Clearly delineates the boundaries of the fire</li>
+              <li><i class="bi bi-check"></i> Can be integrated into video to show progression</li>
+              <li><i class="bi bi-check"></i> Provides a confidence estimator of the bounding box</li>
+            </ul>
+
           </div>
         </div>
 
