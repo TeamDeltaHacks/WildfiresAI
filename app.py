@@ -13,7 +13,7 @@ fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
 svm = load('svm.joblib')
 elnt = load('elnt.joblib')
 #model_xgb = xgb.Booster()
-#model_xgb.load_model('xgb.json')
+# model_xgb.load_model('xgb.json')
 putout_model = load_model('putout.h5')
 
 
@@ -36,7 +36,7 @@ def localize():
 def predict():
     if(request.method == 'POST'):
         output = "Unknown error"
-        #try:
+        # try:
         latitude = float(request.form.get("latitude"))
         longitude = float(request.form.get("longitude"))
         month = int(request.form.get("month"))
@@ -59,14 +59,16 @@ def predict():
         assert (humidity >= 0)
         assert (humidity <= 100)
         assert (precipitation >= 0)
-        assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation == 12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
+        assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation ==
+                12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
 
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         month = months[month - 1]
 
         # Create data
         columns = ['latitude', 'longitude', 'discovery_month',
-                    'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+                   'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
         mag_data = fire_data[columns]
         mag_data = mag_data.dropna()
 
@@ -82,15 +84,17 @@ def predict():
         }
 
         X_dataf = pd.DataFrame(data=X_data)
+        print(X_dataf.columns)
         X_dataf = X_dataf.append(mag_data)
 
         # One Hot Encodings
         non_dummy_cols = ['latitude', 'longitude',
-                            'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+                          'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
         dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
         X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
         X_dataf = X_dataf.iloc[:1]
+        print(X_dataf.columns)
         y_elastic = elnt.predict(X_dataf)
         y_elastic = y_elastic[0]
         #y_svm = svm.predict(X_dataf)
@@ -107,12 +111,38 @@ def predict():
         print(result)
         result_rounded = round(result)
         result_float = float(result_rounded)
-
-
         output = f"Magnitude: {result_rounded} Acres"
-        #except Exception as e:
+        # except Exception as e:
         #    print(e)
         #    output = "Invalid parameters"
+
+        # Create data
+        columns1 = ['fire_size', 'discovery_month',
+                    'Vegetation', 'remoteness']
+        putout_data = fire_data[columns1]
+        putout_data = mag_data.dropna()
+
+        X_data1 = {
+            'fire_size': [result_float],
+            'discovery_month': [month],
+            'Vegetation': [vegetation],
+            'remoteness': [remoteness]
+        }
+
+        X_dataf1 = pd.DataFrame(data=X_data1)
+        print(X_dataf1.columns)
+        X_dataf1 = X_dataf1.append(putout_data)
+
+        # One Hot Encodings
+        non_dummy_cols1 = ['discovery_month', 'Vegetation']
+        dummy_cols1 = list(set(X_dataf1.columns) - set(non_dummy_cols1))
+        X_dataf1 = pd.get_dummies(X_dataf1, columns=dummy_cols1)
+
+        X_dataf1 = X_dataf1.iloc[:1]
+
+        # Predict
+        result1 = putout_model.predict(X_dataf1)
+
         return render_template('predict.html', output=output)
     else:
         return render_template('predict.html', output="")
