@@ -110,6 +110,27 @@
                 </select>
               </div>
               <div class="col-6 form-group">
+                <input type="number" class="form-control" name="remoteness" id="remoteness" placeholder="Distance (km) to Closest City" min="0" required>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-6 form-group">
+                <input type="number" class="form-control" name="temperature" id="temperature" placeholder="Average Temperature (Celsius) Over 7 Days" min="-274" required>
+              </div>
+              <div class="col-6 form-group">
+                <input type="number" class="form-control" name="wind" id="wind" placeholder="Average Wind (m/s) Over 7 Days" min="0" required>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-6 form-group">
+                <input type="number" class="form-control" name="humidity" id="humidity" placeholder="Average Humidity (%) Over 7 Days" min="0" max="100" required>
+              </div>
+              <div class="col-6 form-group">
+                <input type="number" class="form-control" name="precipitation" id="precipitation" placeholder="Average Precipitation (mm) Over 7 Days" min="0" required>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-12 form-group">
                 <select class="form-control" name="vegetation" id="vegetation">
                   <option value="default">Dominant Vegetation in Area...</option>
                   <option value="1">Tropical Evergreen Broadleaf Forest</option>
@@ -141,6 +162,11 @@
                   <option value="27">C4 Pastureland</option>
                   <option value="28">Urban land</option>
                 </select>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="text-center form-group">
+                <input type="submit" class="btn btn-primary" name="submit" id="submit" value="Predict">
               </div>
             </div>
           </form>
