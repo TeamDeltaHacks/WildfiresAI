@@ -22,6 +22,10 @@ def predict():
 @app.route('/visualize')
 def visualize():
     return render_template('visualize.html')
+
+@app.route('/visualize_map')
+def visualize_map():
+    return render_template('visualize-map.html')
  
 if __name__ == "__main__":
     app.run(debug=True)
