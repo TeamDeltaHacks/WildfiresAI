@@ -61,23 +61,35 @@ def predict():
             assert (vegetation <= 28)
 
             # Create data
-            columns = ['fire_size', 'latitude', 'longitude', 'discovery_month',
+            columns = ['latitude', 'longitude', 'discovery_month',
                        'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
             mag_data = fire_data[columns]
             mag_data = mag_data.dropna()
 
-            # In the first row, add the data (from above input)
+            X_data = {
+                'latitude': latitude,
+                'longitude': longitude,
+                'discovery_month': month,
+                'Vegetation': vegetation,
+                'Temp_pre_7': temperature,
+                'Hum_pre_7': humidity,
+                'Prec_pre_7': precipitation,
+                'Wind_pre_7': wind
+            }
+
+            X_dataf = pd.DataFrame(data=X_data)
+            X_dataf = X_dataf.append(mag_data)
 
             # One Hot Encodings
             non_dummy_cols = ['fire_size', 'latitude', 'longitude',
                               'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
-            dummy_cols = list(set(mag_data.columns) - set(non_dummy_cols))
-            mag_data = pd.get_dummies(mag_data, columns=dummy_cols)
+            dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
+            X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
-            mag_data = mag_data.iloc[:1]
-            y_elastic = elnt.predict(mag_data)
-            y_svm = svm.predict(mag_data)
-            y_xgb = xgb.predict(mag_data)
+            X_dataf = X_dataf.iloc[:1]
+            y_elastic = elnt.predict(X_dataf)
+            y_svm = svm.predict(X_dataf)
+            y_xgb = xgb.predict(X_dataf)
             result = (y_svm + y_xgb + y_elastic)/3
 
             # result is the final answer in acres (fire burn area)
@@ -85,7 +97,7 @@ def predict():
             # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
             # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
 
-            output = "Output"
+            output = result + " Acres"
         except:
             output = "Invalid parameters"
         return render_template('predict.html', output=output)
