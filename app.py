@@ -69,5 +69,9 @@ def portfolio():
 def visualize_map():
     return render_template('visualize-map.html')
 
+@app.route('/visualize-map2')
+def visualize_map():
+    return render_template('visualize-map2.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
