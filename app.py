@@ -58,7 +58,7 @@ def predict():
             output = "Invalid parameters"
         return render_template('predict.html', output=output)
     else:
-        return render_template('predict.html')
+        return render_template('predict.html', output="")
 
 
 @app.route('/visualize')

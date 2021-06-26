@@ -79,8 +79,24 @@
     </section><!-- End Predict Section -->
 
     <!-- ======= Inputs Section ======= -->
-    <section>
+    <section class="section">
+      
       <div class="container">
+        {% if output != "" %}
+          <center>
+            <h1 class="output col-12">{{output}}</h1>
+          </center>
+          <style>
+            .output {
+              text-align: center;
+              margin-bottom: 60px;
+              background-color: #1e4356;
+              padding: 30px;
+              border-radius: 20px;
+              color: white;
+            }
+          </style>
+        {% endif %}
         <div class="col-12">
           <form method="POST">
             <div class="row mb-4">
