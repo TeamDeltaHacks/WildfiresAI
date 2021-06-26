@@ -12,8 +12,8 @@ app = Flask(__name__)
 fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
 svm = load('svm.joblib')
 elnt = load('elnt.joblib')
-model_xgb = xgb.Booster()
-model_xgb.load_model('xgb.json')
+#model_xgb = xgb.Booster()
+#model_xgb.load_model('xgb.json')
 putout_model = load_model('putout.h5')
 
 
@@ -36,72 +36,85 @@ def localize():
 def predict():
     if(request.method == 'POST'):
         output = "Unknown error"
-        try:
-            latitude = float(request.form.get("latitude"))
-            longitude = float(request.form.get("longitude"))
-            month = int(request.form.get("month"))
-            remoteness = float(request.form.get("remoteness"))
-            temperature = float(request.form.get("temperature"))
-            wind = float(request.form.get("wind"))
-            humidity = float(request.form.get("humidity"))
-            precipitation = float(request.form.get("precipitation"))
-            vegetation = int(request.form.get("vegetation"))
+        #try:
+        latitude = float(request.form.get("latitude"))
+        longitude = float(request.form.get("longitude"))
+        month = int(request.form.get("month"))
+        remoteness = float(request.form.get("remoteness"))
+        temperature = float(request.form.get("temperature"))
+        wind = float(request.form.get("wind"))
+        humidity = float(request.form.get("humidity"))
+        precipitation = float(request.form.get("precipitation"))
+        vegetation = int(request.form.get("vegetation"))
 
-            assert (longitude >= -90)
-            assert (longitude <= 90)
-            assert (latitude >= -180)
-            assert (latitude <= 180)
-            assert (month >= 1)
-            assert (month <= 12)
-            assert (remoteness >= 0)
-            assert (temperature >= -274)
-            assert (wind >= 0)
-            assert (humidity >= 0)
-            assert (humidity <= 100)
-            assert (precipitation >= 0)
-            assert (vegetation >= 1)
-            assert (vegetation <= 28)
+        assert (longitude >= -90)
+        assert (longitude <= 90)
+        assert (latitude >= -180)
+        assert (latitude <= 180)
+        assert (month >= 1)
+        assert (month <= 12)
+        assert (remoteness >= 0)
+        assert (temperature >= -274)
+        assert (wind >= 0)
+        assert (humidity >= 0)
+        assert (humidity <= 100)
+        assert (precipitation >= 0)
+        #assert (vegetation >= 1)
+        #assert (vegetation <= 28)
+        assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation == 12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
 
-            # Create data
-            columns = ['latitude', 'longitude', 'discovery_month',
-                       'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
-            mag_data = fire_data[columns]
-            mag_data = mag_data.dropna()
+        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        month = months[month - 1]
 
-            X_data = {
-                'latitude': latitude,
-                'longitude': longitude,
-                'discovery_month': month,
-                'Vegetation': vegetation,
-                'Temp_pre_7': temperature,
-                'Hum_pre_7': humidity,
-                'Prec_pre_7': precipitation,
-                'Wind_pre_7': wind
-            }
+        # Create data
+        columns = ['latitude', 'longitude', 'discovery_month',
+                    'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+        mag_data = fire_data[columns]
+        mag_data = mag_data.dropna()
 
-            X_dataf = pd.DataFrame(data=X_data)
-            X_dataf = X_dataf.append(mag_data)
+        X_data = {
+            'latitude': [latitude],
+            'longitude': [longitude],
+            'discovery_month': [month],
+            'Vegetation': [vegetation],
+            'Temp_pre_7': [temperature],
+            'Hum_pre_7': [humidity],
+            'Prec_pre_7': [precipitation],
+            'Wind_pre_7': [wind]
+        }
 
-            # One Hot Encodings
-            non_dummy_cols = ['fire_size', 'latitude', 'longitude',
-                              'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
-            dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
-            X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
+        X_dataf = pd.DataFrame(data=X_data)
+        print(X_dataf.columns)
+        X_dataf = X_dataf.append(mag_data)
 
-            X_dataf = X_dataf.iloc[:1]
-            y_elastic = elnt.predict(X_dataf)
-            y_svm = svm.predict(X_dataf)
-            y_xgb = xgb.predict(X_dataf)
-            result = (y_svm + y_xgb + y_elastic)/3
+        # One Hot Encodings
+        non_dummy_cols = ['latitude', 'longitude',
+                            'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+        dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
+        X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
-            # result is the final answer in acres (fire burn area)
+        X_dataf = X_dataf.iloc[:1]
+        print(X_dataf.columns)
+        y_elastic = elnt.predict(X_dataf)
+        y_elastic = y_elastic[0]
+        #y_svm = svm.predict(X_dataf)
+        #y_xgb = xgb.predict(X_dataf)
+        #result = (y_svm + y_xgb + y_elastic)/3
+        #result = (y_svm + y_elastic) / 2
+        result = y_elastic
 
-            # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
-            # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
+        # result is the final answer in acres (fire burn area)
 
-            output = result + " Acres"
-        except:
-            output = "Invalid parameters"
+        # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
+        # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
+
+        print(result)
+        result_rounded = round(result, 2)
+        output = f"Magnitude: {result_rounded} Acres"
+        #output = "Acres"
+        #except Exception as e:
+        #    print(e)
+        #    output = "Invalid parameters"
         return render_template('predict.html', output=output)
     else:
         return render_template('predict.html', output="")
