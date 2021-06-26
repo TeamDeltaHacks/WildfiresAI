@@ -139,7 +139,7 @@ def predict():
         result1_rounded = round(result1)
         if(result1_rounded > 365):
             result1_rounded = 365
-        output = f"Magnitude: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
+        output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
         # except Exception as e:
         #    print(e)
         #    output = "Invalid parameters"
