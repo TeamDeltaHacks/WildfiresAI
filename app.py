@@ -109,8 +109,9 @@ def predict():
         # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
 
         print(result)
-        result_rounded = round(result, 2)
-        output = f"Magnitude: {result_rounded} Acres"
+        result_rounded = round(result)
+        result_float = float(result_rounded)
+        output = f"Magnitude: {result_rounded} Acres"   
         #output = "Acres"
         #except Exception as e:
         #    print(e)
