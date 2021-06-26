@@ -165,7 +165,7 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box icon-box-cyan">
               <div class="icon"><i class="bx bx-expand"></i></div>
-              <h4 class="title"><a href="">Fire Size</a></h4>
+              <h4 class="title"><a href="">Magnitude Prediction</a></h4>
               <p class="description">Predicting the size of a fire in acres using a combined ensemble model with Elastic
                 Net, SVM regressor, and XGBoost regressor</p>
             </div>
@@ -174,7 +174,7 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-green">
               <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Fire Put-Out Time</a></h4>
+              <h4 class="title"><a href="">Put-Out Time Estimation</a></h4>
               <p class="description">Predicting the time it takes to put out a fire in a given area using a Sequential
                 Neural Network
               </p>
@@ -184,7 +184,7 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box icon-box-blue">
               <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">Visualizations</a></h4>
+              <h4 class="title"><a href="">Visualization</a></h4>
               <p class="description">Using Folium to visualize fire sizes and conveniently sort by a variety of features
               </p>
             </div>
@@ -210,15 +210,16 @@
             <img src="../static/assets/img/features-1.svg" class="img-fluid" alt="">
           </div>
           <div class="col-md-7 pt-4">
-            <h3>Fire Detection With Bounding Box</h3>
+            <h3>Fire Detection</h3>
             <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
+              Using a custom-trained Tensorflow2 Object Detection Model, this feature accurately uses bounding boxes to
+              surround a fire with a rectangle with the % chance of confidence.
             </p>
             <ul>
-              <li><i class="bi bi-check"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+              <li><i class="bi bi-check"></i>Clearly delineates the boundaries of the fire, especially in the case of
+                faint smoke</li>
+              <li><i class="bi bi-check"></i>Can be used in video footage to show the progression of a fire over time
+              </li>
             </ul>
           </div>
         </div>
