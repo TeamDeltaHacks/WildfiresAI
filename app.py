@@ -7,25 +7,31 @@ import os
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/detect')
+def about():
+    return render_template('detect.html')
+
 
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     return render_template('detect.html')
 
+
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
     return render_template('predict.html')
 
+
 @app.route('/visualize')
-def visualize():
+def portfolio():
     return render_template('visualize.html')
 
-@app.route('/visualize_map')
-def visualize_map():
-    return render_template('visualize-map.html')
- 
+
 if __name__ == "__main__":
     app.run(debug=True)
