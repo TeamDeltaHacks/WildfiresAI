@@ -25,7 +25,19 @@ def detect():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    return render_template('predict.html')
+    if(request.method == 'POST'):
+        latitude = request.form.get("latitude")
+        longitude = request.form.get("longitude")
+        month = request.form.get("month")
+        remoteness = request.form.get("remoteness")
+        temperature = request.form.get("temperature")
+        wind = request.form.get("wind")
+        humidity = request.form.get("humidity")
+        precipitation = request.form.get("precipitation")
+        vegetation = request.form.get("vegetation")
+        return render_template('predict.html')
+    else:
+        return render_template('predict.html')
 
 
 @app.route('/visualize')
