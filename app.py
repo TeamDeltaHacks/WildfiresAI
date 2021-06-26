@@ -125,29 +125,17 @@ def predict():
         }
 
         X_dataf1 = pd.DataFrame(data=X_data1)
-        print(X_dataf1.columns)
         X_dataf1 = X_dataf1.append(putout_data)
-        print(0)
 
         # One Hot Encodings
         non_dummy_cols1 = ['fire_size', 'remoteness']
-        print(1)
         dummy_cols1 = list(set(X_dataf1.columns) - set(non_dummy_cols1))
-        print(2)
-        print(putout_data)
-        print("\n\n")
-        print(X_dataf1)
-        print("\n\n")
-        print(dummy_cols1)
         X_dataf1 = pd.get_dummies(X_dataf1, columns=dummy_cols1)
-        print(3)
 
         X_dataf1 = X_dataf1.iloc[:1]
-        print(4)
 
         # Predict
         result1 = putout_model.predict(X_dataf1)[0][0]
-        print(5)
         result1_rounded = round(result1)
         if(result1_rounded > 500):
             result1_rounded = 500
