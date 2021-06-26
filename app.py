@@ -11,11 +11,11 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/detect')
+@app.route('/detect', methods=['GET', 'POST'])
 def detect():
     return render_template('detect.html')
 
-@app.route('/predict')
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     return render_template('predict.html')
 
