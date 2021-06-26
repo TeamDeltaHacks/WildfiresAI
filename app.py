@@ -82,7 +82,6 @@ def predict():
         }
 
         X_dataf = pd.DataFrame(data=X_data)
-        print(X_dataf.columns)
         X_dataf = X_dataf.append(mag_data)
 
         # One Hot Encodings
@@ -92,7 +91,6 @@ def predict():
         X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
         X_dataf = X_dataf.iloc[:1]
-        print(X_dataf.columns)
         y_elastic = elnt.predict(X_dataf)
         y_elastic = y_elastic[0]
         #y_svm = svm.predict(X_dataf)
@@ -109,6 +107,8 @@ def predict():
         print(result)
         result_rounded = round(result)
         result_float = float(result_rounded)
+
+
         output = f"Magnitude: {result_rounded} Acres"
         #except Exception as e:
         #    print(e)
