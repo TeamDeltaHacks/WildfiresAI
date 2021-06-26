@@ -19,9 +19,9 @@ def about():
 def services():
     return render_template('services.html')
 
-@app.route('/portfolio')
+@app.route('/visualize')
 def portfolio():
-    return render_template('portfolio.html')
+    return render_template('visualize.html')
  
 if __name__ == "__main__":
     app.run(debug=True)
