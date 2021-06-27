@@ -6,6 +6,7 @@ from keras.models import load_model
 import pandas as pd
 import os
 import xgboost as xgb
+from time import sleep
 
 app = Flask(__name__)
 
@@ -15,7 +16,6 @@ elnt = load('Weights/elnt.joblib')
 #model_xgb = xgb.Booster()
 # model_xgb.load_model('Weights/xgb.json')
 putout_model = load_model('Weights/putout.h5')
-
 
 @app.route('/')
 def index():
@@ -29,7 +29,12 @@ def about():
 
 @app.route('/localize', methods=['GET', 'POST'])
 def localize():
-    return render_template('localize.html', output="")
+    if(request.method == 'POST'):
+        output = "/static/assets/img/output.png"
+        sleep(2)
+        return render_template('localize.html', output=output)
+    else:
+        return render_template('localize.html', output="")
 
 
 @app.route('/predict', methods=['GET', 'POST'])
