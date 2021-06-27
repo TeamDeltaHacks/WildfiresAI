@@ -9,7 +9,7 @@ import xgboost as xgb
 
 app = Flask(__name__)
 
-fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
+fire_data = pd.read_csv("Data/WildfireData.csv", na_values="NaN")
 svm = load('Weights/svm.joblib')
 elnt = load('Weights/elnt.joblib')
 #model_xgb = xgb.Booster()
