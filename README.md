@@ -4,22 +4,25 @@ Using Machine Learning to Help Prepare for Wildfires
 
 Learn More: https://devpost.com/software/wildfiresai
 
-### To Run Locally
+## Hosted Website
+A hosted instance of WildfiresAI is available at [wildfires.ml](https://wildfires.ml/).
 
-## Dependencies
+## To Run Locally
+
+### Dependencies
 In order to install all dependencies, run `pip install -r requirements.txt` in your terminal or command prompt. 
 
-## Running
+### Running
 To run the code, open a terminal and navigate to the root directory of this repository. Then, run the following commands:
 
-For MacOS
+#### For MacOS
 ```bash
 export FLASK_ENV=development
 export FLASK_APP=app.py
 flask run
 ```
 
-For Windows
+#### For Windows
 ```bash
 set FLASK_ENV=development
 set FLASK_APP=app.py
