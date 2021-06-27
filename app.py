@@ -109,6 +109,8 @@ def predict():
         result_rounded = round(result)
         if(result_rounded > 1000000):
             result_rounded = 1000000
+        if(result_rounded <= 10):
+            result_rounded = 10
         result_float = float(result_rounded)
 
         # Create data
@@ -139,6 +141,8 @@ def predict():
         result1_rounded = round(result1)
         if(result1_rounded > 365):
             result1_rounded = 365
+        if(result1_rounded <= 0):
+            result1_rounded = 0
         output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
         # except Exception as e:
         #    print(e)
