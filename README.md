@@ -1,11 +1,10 @@
 # [WildfiresAI](https://wildfires.ml/)
 
 Using Machine Learning to Help Prepare for Wildfires
-
 Learn More: https://devpost.com/software/wildfiresai
 
 ## Hosted Website
-A hosted instance of WildfiresAI is available at [wildfires.ml](https://wildfires.ml/).
+You can view the hosted version of our website here: [wildfires.ml](https://wildfires.ml/). Please note that some functions may not be fully operational due to memory allocation and storage issues.
 
 ## To Run Locally
 
