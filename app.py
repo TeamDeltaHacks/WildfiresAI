@@ -10,11 +10,11 @@ import xgboost as xgb
 app = Flask(__name__)
 
 fire_data = pd.read_csv("WildfireData.csv", na_values="NaN")
-svm = load('svm.joblib')
-elnt = load('elnt.joblib')
+svm = load('Weights/svm.joblib')
+elnt = load('Weights/elnt.joblib')
 #model_xgb = xgb.Booster()
-# model_xgb.load_model('xgb.json')
-putout_model = load_model('putout.h5')
+# model_xgb.load_model('Weights/xgb.json')
+putout_model = load_model('Weights/putout.h5')
 
 
 @app.route('/')
@@ -143,8 +143,6 @@ def predict():
         # except Exception as e:
         #    print(e)
         #    output = "Invalid parameters"
-
-        
 
         return render_template('predict.html', output=output)
     else:
