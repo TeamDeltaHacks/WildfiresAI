@@ -1,6 +1,6 @@
 # [WildfiresAI](https://wildfires.ml/)
 
-Using ML to help prepare for wildfires
+Using Machine Learning to Help Prepare for Wildfires
 
 Learn More: https://devpost.com/software/wildfiresai
 
