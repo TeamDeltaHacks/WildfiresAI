@@ -2,7 +2,8 @@
 
 ## Awards
 
-[insert]
+* First place at Epsilon Hacks II
+* Best execution at OwlHack 2021
 
 ## About
 
