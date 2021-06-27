@@ -1,5 +1,7 @@
 # [WildfiresAI](https://wildfires.ml/)
 
+![Screen Shot 2021-06-26 at 7 49 40 PM](https://user-images.githubusercontent.com/56781484/123531219-a6c1a580-d6b7-11eb-984c-4d4d00a09088.png)
+
 Using Machine Learning to Help Prepare for Wildfires
 Learn More: https://devpost.com/software/wildfiresai
 
