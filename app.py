@@ -41,117 +41,117 @@ def localize():
 def predict():
     if(request.method == 'POST'):
         output = "Unknown error"
-        # try:
-        latitude = float(request.form.get("latitude"))
-        longitude = float(request.form.get("longitude"))
-        month = int(request.form.get("month"))
-        remoteness = float(request.form.get("remoteness"))
-        temperature = float(request.form.get("temperature"))
-        wind = float(request.form.get("wind"))
-        humidity = float(request.form.get("humidity"))
-        precipitation = float(request.form.get("precipitation"))
-        vegetation = int(request.form.get("vegetation"))
+        try:
+            latitude = float(request.form.get("latitude"))
+            longitude = float(request.form.get("longitude"))
+            month = int(request.form.get("month"))
+            remoteness = float(request.form.get("remoteness"))
+            temperature = float(request.form.get("temperature"))
+            wind = float(request.form.get("wind"))
+            humidity = float(request.form.get("humidity"))
+            precipitation = float(request.form.get("precipitation"))
+            vegetation = int(request.form.get("vegetation"))
 
-        assert (latitude >= -90)
-        assert (latitude <= 90)
-        assert (longitude >= -180)
-        assert (longitude <= 180)
-        assert (month >= 1)
-        assert (month <= 12)
-        assert (remoteness >= 0)
-        assert (temperature >= -274)
-        assert (wind >= 0)
-        assert (humidity >= 0)
-        assert (humidity <= 100)
-        assert (precipitation >= 0)
-        assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation ==
-                12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
+            assert (latitude >= -90)
+            assert (latitude <= 90)
+            assert (longitude >= -180)
+            assert (longitude <= 180)
+            assert (month >= 1)
+            assert (month <= 12)
+            assert (remoteness >= 0)
+            assert (temperature >= -274)
+            assert (wind >= 0)
+            assert (humidity >= 0)
+            assert (humidity <= 100)
+            assert (precipitation >= 0)
+            assert (vegetation == 0 or vegetation == 4 or vegetation == 9 or vegetation ==
+                    12 or vegetation == 14 or vegetation == 15 or vegetation == 16)
 
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        month = months[month - 1]
+            months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            month = months[month - 1]
 
-        # Create data
-        columns = ['latitude', 'longitude', 'discovery_month',
-                   'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
-        mag_data = fire_data[columns]
-        mag_data = mag_data.dropna()
+            # Create data
+            columns = ['latitude', 'longitude', 'discovery_month',
+                    'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+            mag_data = fire_data[columns]
+            mag_data = mag_data.dropna()
 
-        X_data = {
-            'latitude': [latitude],
-            'longitude': [longitude],
-            'discovery_month': [month],
-            'Vegetation': [vegetation],
-            'Temp_pre_7': [temperature],
-            'Hum_pre_7': [humidity],
-            'Prec_pre_7': [precipitation],
-            'Wind_pre_7': [wind]
-        }
+            X_data = {
+                'latitude': [latitude],
+                'longitude': [longitude],
+                'discovery_month': [month],
+                'Vegetation': [vegetation],
+                'Temp_pre_7': [temperature],
+                'Hum_pre_7': [humidity],
+                'Prec_pre_7': [precipitation],
+                'Wind_pre_7': [wind]
+            }
 
-        X_dataf = pd.DataFrame(data=X_data)
-        X_dataf = X_dataf.append(mag_data)
+            X_dataf = pd.DataFrame(data=X_data)
+            X_dataf = X_dataf.append(mag_data)
 
-        # One Hot Encodings
-        non_dummy_cols = ['latitude', 'longitude',
-                          'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
-        dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
-        X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
+            # One Hot Encodings
+            non_dummy_cols = ['latitude', 'longitude',
+                            'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7']
+            dummy_cols = list(set(X_dataf.columns) - set(non_dummy_cols))
+            X_dataf = pd.get_dummies(X_dataf, columns=dummy_cols)
 
-        X_dataf = X_dataf.iloc[:1]
-        y_elastic = elnt.predict(X_dataf)
-        y_elastic = y_elastic[0]
-        #y_svm = svm.predict(X_dataf)
-        #y_xgb = xgb.predict(X_dataf)
-        #result = (y_svm + y_xgb + y_elastic)/3
-        #result = (y_svm + y_elastic) / 2
-        result = y_elastic
+            X_dataf = X_dataf.iloc[:1]
+            y_elastic = elnt.predict(X_dataf)
+            y_elastic = y_elastic[0]
+            #y_svm = svm.predict(X_dataf)
+            #y_xgb = xgb.predict(X_dataf)
+            #result = (y_svm + y_xgb + y_elastic)/3
+            #result = (y_svm + y_elastic) / 2
+            result = y_elastic
 
-        # result is the final answer in acres (fire burn area)
+            # result is the final answer in acres (fire burn area)
 
-        # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
-        # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
+            # fire size: 'latitude', 'longitude', 'discovery_month', 'Vegetation', 'Temp_pre_7', 'Hum_pre_7', 'Prec_pre_7', 'Wind_pre_7'
+            # putout: 'fire_size', 'remoteness', 'discovery_month', 'Vegetation'
 
-        result_rounded = round(result)
-        if(result_rounded > 1000000):
-            result_rounded = 1000000
-        if(result_rounded <= 10):
-            result_rounded = 10
-        result_float = float(result_rounded)
+            result_rounded = round(result)
+            if(result_rounded > 1000000):
+                result_rounded = 1000000
+            if(result_rounded <= 10):
+                result_rounded = 10
+            result_float = float(result_rounded)
 
-        # Create data
-        columns1 = ['fire_size', 'discovery_month',
-                    'Vegetation', 'remoteness']
-        putout_data = fire_data[columns1]
-        putout_data = putout_data.dropna()
+            # Create data
+            columns1 = ['fire_size', 'discovery_month',
+                        'Vegetation', 'remoteness']
+            putout_data = fire_data[columns1]
+            putout_data = putout_data.dropna()
 
-        X_data1 = {
-            'fire_size': [result_float],
-            'discovery_month': [month],
-            'Vegetation': [vegetation],
-            'remoteness': [remoteness]
-        }
+            X_data1 = {
+                'fire_size': [result_float],
+                'discovery_month': [month],
+                'Vegetation': [vegetation],
+                'remoteness': [remoteness]
+            }
 
-        X_dataf1 = pd.DataFrame(data=X_data1)
-        X_dataf1 = X_dataf1.append(putout_data)
+            X_dataf1 = pd.DataFrame(data=X_data1)
+            X_dataf1 = X_dataf1.append(putout_data)
 
-        # One Hot Encodings
-        non_dummy_cols1 = ['fire_size', 'remoteness']
-        dummy_cols1 = list(set(X_dataf1.columns) - set(non_dummy_cols1))
-        X_dataf1 = pd.get_dummies(X_dataf1, columns=dummy_cols1)
+            # One Hot Encodings
+            non_dummy_cols1 = ['fire_size', 'remoteness']
+            dummy_cols1 = list(set(X_dataf1.columns) - set(non_dummy_cols1))
+            X_dataf1 = pd.get_dummies(X_dataf1, columns=dummy_cols1)
 
-        X_dataf1 = X_dataf1.iloc[:1]
+            X_dataf1 = X_dataf1.iloc[:1]
 
-        # Predict
-        result1 = putout_model.predict(X_dataf1)[0][0]
-        result1_rounded = round(result1)
-        if(result1_rounded > 365):
-            result1_rounded = 365
-        if(result1_rounded <= 0):
-            result1_rounded = 0
-        output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
-        # except Exception as e:
-        #    print(e)
-        #    output = "Invalid parameters"
+            # Predict
+            result1 = putout_model.predict(X_dataf1)[0][0]
+            result1_rounded = round(result1)
+            if(result1_rounded > 365):
+                result1_rounded = 365
+            if(result1_rounded <= 0):
+                result1_rounded = 0
+            output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
+        except Exception as e:
+            print(e)
+            output = "Invalid parameters"
 
         return render_template('predict.html', output=output)
     else:
