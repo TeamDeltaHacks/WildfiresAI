@@ -2,7 +2,7 @@
 
 ## Awards
 
-* First Place at Epsilon Hacks II
+* First Place Overall at Epsilon Hacks II
 * Best Execution at OwlHack 2021
 * Best Environment Hack at Citro Hacks
 
