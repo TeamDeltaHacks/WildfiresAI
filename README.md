@@ -1,5 +1,7 @@
 # [WildfiresAI](https://wildfires.ml/)
 
+3x hackathon award winner (1 grand prize)
+
 ## Awards
 
 * First Place Overall at Epsilon Hacks II
