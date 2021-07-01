@@ -7,8 +7,14 @@ import pandas as pd
 import os
 import xgboost as xgb
 from time import sleep
+import logging
+import numpy as np
 
 app = Flask(__name__)
+
+# app.logger.disabled = True
+# log = logging.getLogger("werkzeug")
+# log.disabled = True
 
 fire_data = pd.read_csv("Data/WildfireData.csv", na_values="NaN")
 svm = load('Weights/svm.joblib')
@@ -16,6 +22,7 @@ elnt = load('Weights/elnt.joblib')
 #model_xgb = xgb.Booster()
 # model_xgb.load_model('Weights/xgb.json')
 putout_model = load_model('Weights/putout.h5')
+cause_model = load_model('Weights/cause.h5')
 
 @app.route('/')
 def index():
@@ -131,6 +138,8 @@ def predict():
                 'remoteness': [remoteness]
             }
 
+
+
             X_dataf1 = pd.DataFrame(data=X_data1)
             X_dataf1 = X_dataf1.append(putout_data)
 
@@ -148,7 +157,38 @@ def predict():
                 result1_rounded = 365
             if(result1_rounded <= 0):
                 result1_rounded = 0
-            output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days"
+
+            cause_data = {
+                'fire_size': [result_float],
+                'remoteness': [remoteness],
+                'putout_time': [result1]
+            }
+            cause_data = pd.DataFrame(cause_data)
+            result3 = cause_model.predict(cause_data)
+            final = 0
+            for i in range(6):
+                if (result3[0][i] > final):
+                    final = result3[0][i]
+                # print(final)
+            final = np.where(result3[0] == final)
+            final = final[0][0]
+            print(final)
+
+            if (final == 0):
+                cause = "Debris Burning"
+            elif (final == 1):
+                cause = "Arson"
+            elif (final ==2):
+                cause = "Lightning"
+            elif (final == 3):
+                cause = "Equipment Use"
+            elif (final == 4):
+                cause = "Campfire"
+            else:
+                cause = "Other"
+
+
+            output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days\nCause: {cause}"
         except Exception as e:
             print(e)
             output = "Invalid parameters"
