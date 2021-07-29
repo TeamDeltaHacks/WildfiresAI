@@ -6,3 +6,4 @@ keras_nightly==2.5.0.dev2021032900
 xgboost==1.4.2
 tensorflow==2.5.0
 keras==2.4.3
+xmltodict==0.12.0

@@ -1,0 +1,11 @@
+<annotation>
+	<object>
+		<name>wildfire</name>
+		<bndbox>
+			<xmin>274</xmin>
+			<ymin>229</ymin>
+			<xmax>454</xmax>
+			<ymax>311</ymax>
+		</bndbox>
+	</object>
+</annotation>
