@@ -107,8 +107,8 @@ def predict():
             X_dataf = X_dataf.iloc[:1]
             y_elastic = elnt.predict(X_dataf)
             y_elastic = y_elastic[0]
-            y_svm = svm.predict(X_dataf)
-            print(y_svm[0])
+            # y_svm = svm.predict(X_dataf)
+            # print(y_svm[0])
             #y_xgb = xgb.predict(X_dataf)
             #result = (y_svm + y_xgb + y_elastic)/3
             #result = (y_svm + y_elastic) / 2
