@@ -9,6 +9,8 @@ import xgboost as xgb
 from time import sleep
 import logging
 import numpy as np
+import geopandas as gdp
+import folium
 
 app = Flask(__name__)
 
@@ -190,6 +192,25 @@ def predict():
 
 
             output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days\nCause: {cause}"
+
+            m = folium.Map(location = [latitude, longitude],
+            zoom_start = 9)
+
+            map_pred = folium.FeatureGroup(name = 'Visualized Predicted Fire')
+            
+            folium.CircleMarker(location = [latitude, longitude],
+                                radius = result_rounded* 1.5,
+                                weight = 0,
+                                color = '#fc4e2a',
+                                fill_color = '#fc4e2a',
+                                fill_opacity = 0.7,
+                                fill = True).add_to(map_pred)
+            map_pred.add_to(m)
+            folium.LayerControl(collapsed = False).add_to(m)
+
+            m.save(r'templates/predicted-map.html')
+
+
         except Exception as e:
             print(e)
             output = "Invalid parameters"
@@ -197,6 +218,9 @@ def predict():
         return render_template('predict.html', output=output)
     else:
         return render_template('predict.html', output="")
+
+
+
 
 
 @app.route('/visualize')
