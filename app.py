@@ -194,12 +194,12 @@ def predict():
             output = f"Burn Area: {result_rounded} Acres\nPutout Time: {result1_rounded} Days\nCause: {cause}"
 
             m = folium.Map(location = [latitude, longitude],
-            zoom_start = 9)
+            zoom_start = 12)
 
             map_pred = folium.FeatureGroup(name = 'Visualized Predicted Fire')
             
             folium.CircleMarker(location = [latitude, longitude],
-                                radius = result_rounded* 1.5,
+                                radius = result_rounded/6,
                                 weight = 0,
                                 color = '#fc4e2a',
                                 fill_color = '#fc4e2a',
@@ -236,6 +236,10 @@ def visualize_map():
 @app.route('/visualize-map2')
 def visualize_map2():
     return render_template('visualize-map2.html')
+
+@app.route('/predicted_map')
+def predicted_map():
+    return render_template('predicted-map.html')
 
 
 if __name__ == "__main__":
