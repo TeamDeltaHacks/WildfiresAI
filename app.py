@@ -51,6 +51,7 @@ def predict():
     if(request.method == 'POST'):
         output = "Unknown error"
         try:
+            show_map = False
             latitude = float(request.form.get("latitude"))
             longitude = float(request.form.get("longitude"))
             month = int(request.form.get("month"))
@@ -215,9 +216,9 @@ def predict():
             print(e)
             output = "Invalid parameters"
 
-        return render_template('predict.html', output=output)
+        return render_template('predict.html', output=output, show_map = True)
     else:
-        return render_template('predict.html', output="")
+        return render_template('predict.html', output="", show_map = False)
 
 
 
