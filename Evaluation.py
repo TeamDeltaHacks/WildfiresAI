@@ -1,4 +1,4 @@
-
+# source ~/miniforge3/bin/activate
 from Model import ObjectLocalizer
 from PIL import Image , ImageDraw
 import numpy as np
@@ -32,7 +32,7 @@ print( test_X.shape )
 print( test_Y.shape )
 
 localizer = ObjectLocalizer( input_shape=( input_dim , input_dim , 3 ) )
-localizer.load_model_weights( 'pretrained_weights/pretrained_weights.h5' )
+localizer.load_model_weights( 'pretrained_weights/pretrained_weights.h5' ) # voc.h5 ValueError: You are trying to load a weight file containing 147 layers into a model with 16 layers.
 
 target_boxes = test_Y * input_dim
 pred = localizer.predict( test_X )
