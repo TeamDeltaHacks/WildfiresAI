@@ -1,6 +1,6 @@
 # [WildfiresAI](https://wildfires.ml/)
 
-3x hackathon award winner (1 grand prize)
+3x hackathon award winner
 
 ## Awards
 
@@ -21,23 +21,23 @@ You can view the hosted version of our website here: [wildfires.ml](https://wild
 
 ## To Run Locally
 
+### Clone
+Clone the repo to your system by running the following command:
+
+```bash
+git clone https://github.com/CMEONE/WildfiresAI.git
+cd WildfiresAI
+```
+
 ### Dependencies
 In order to install all dependencies, run `pip install -r requirements.txt` in your terminal or command prompt. 
 
 ### Running
-To run the code, open a terminal and navigate to the root directory of this repository. Then, run the following commands:
+To run the code, open a terminal and navigate to the root directory of this repository. Then, run the following bash commands:
 
-#### For MacOS
 ```bash
 export FLASK_ENV=development
 export FLASK_APP=app.py
-flask run
-```
-
-#### For Windows
-```bash
-set FLASK_ENV=development
-set FLASK_APP=app.py
 flask run
 ```
 
