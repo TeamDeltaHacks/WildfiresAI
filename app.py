@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 from joblib import dump, load
 import tensorflow as tf
-import keras
-from keras.models import load_model
+from tensorflow import keras
+from tensorflow.keras.models import load_model
 import pandas as pd
 import os
 import xgboost as xgb
