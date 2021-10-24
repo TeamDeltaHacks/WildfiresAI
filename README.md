@@ -4,6 +4,7 @@
 Using Machine Learning to Help Prepare for Wildfires
 
 Learn More: https://devpost.com/software/wildfiresai
+
 Demo: https://youtu.be/9cQc-NhqZSo
 
 ## Awards
