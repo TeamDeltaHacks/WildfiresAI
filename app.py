@@ -39,7 +39,7 @@ def about():
 @app.route('/localize', methods=['GET', 'POST'])
 def localize():
     if(request.method == 'POST'):
-        output = "/static/assets/img/error.png"
+        output = "/static/assets/img/output.png"
         sleep(2)
         return render_template('localize.html', output=output)
     else:
