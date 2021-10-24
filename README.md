@@ -1,8 +1,13 @@
+
 # [WildfiresAI](https://wildfires.ml/)
 
-3x hackathon award winner
+Using Machine Learning to Help Prepare for Wildfires
+
+Learn More: https://devpost.com/software/wildfiresai
+Demo: https://youtu.be/9cQc-NhqZSo
 
 ## Awards
+3x hackathon award winner.
 
 * First Place Overall at Epsilon Hacks II
 * Best Execution at OwlHack 2021
@@ -11,10 +16,6 @@
 ## About
 
 ![Screen Shot 2021-06-26 at 7 49 40 PM](https://user-images.githubusercontent.com/56781484/123531219-a6c1a580-d6b7-11eb-984c-4d4d00a09088.png)
-
-Using Machine Learning to Help Prepare for Wildfires 
-
-Learn More: https://devpost.com/software/wildfiresai
 
 ## Hosted Website
 You can view the hosted version of our website here: [wildfires.ml](https://wildfires.ml/). Please note that some functions may not be fully operational due to memory allocation and storage issues.
