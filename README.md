@@ -7,6 +7,8 @@ Learn More: https://devpost.com/software/wildfiresai
 
 Demo: https://youtu.be/JjXK1m8niyg
 
+Submitted to 2021 Congressional App Challenge
+
 ## Awards
 3x hackathon award winner.
 
@@ -17,6 +19,8 @@ Demo: https://youtu.be/JjXK1m8niyg
 ## About
 
 ![Screen Shot 2021-06-26 at 7 49 40 PM](https://user-images.githubusercontent.com/56781484/123531219-a6c1a580-d6b7-11eb-984c-4d4d00a09088.png)
+
+Unlike other natural disasters such as hurricanes and floods, wildfires are not constrained to a certain time period during the year, making them unpredictable and unfortunately harder to combat. This is largely because 80% of wildfires are created by human error, such as through unattended campfires and discarded cigarettes. Because of the vast expanse of most forests, firefighters are often unaware of wildfires in their early stages. Due to the lack of fire department personnel, the demand for automated software to prevent wildfires from fatally progressing is increasing. While there are many existing applications that alert civilians about the presence of a wildfire, most lack the ability to provide assistance to governmental authorities in charge of wildfire management.
 
 ## Hosted Website
 You can view the hosted version of our website here: [wildfires.ml](https://wildfires.ml/). Please note that some functions may not be fully operational due to memory allocation and storage issues.
