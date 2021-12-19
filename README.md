@@ -7,11 +7,10 @@ Learn More: https://devpost.com/software/wildfiresai
 
 Demo: https://youtu.be/JjXK1m8niyg
 
-Submitted to 2021 Congressional App Challenge
-
 ## Awards
-3x hackathon award winner.
+4x hackathon award winner.
 
+* 4th Place 2021 Congressional App Challenge
 * First Place Overall at Epsilon Hacks II
 * Best Execution at OwlHack 2021
 * Best Environment Hack at Citro Hacks
