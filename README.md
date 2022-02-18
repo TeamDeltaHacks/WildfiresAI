@@ -10,7 +10,7 @@ Demo: https://youtu.be/JjXK1m8niyg
 ## Awards
 4x hackathon award winner.
 
-* 4th Place 2021 Congressional App Challenge
+* Honorable Mention at 2021 Congressional App Challenge
 * First Place Overall at Epsilon Hacks II
 * Best Execution at OwlHack 2021
 * Best Environment Hack at Citro Hacks
